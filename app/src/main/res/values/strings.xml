@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HW_8-9</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Здесь текст из фрагмента первого</string>
+</resources>
