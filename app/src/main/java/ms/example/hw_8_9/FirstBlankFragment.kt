@@ -1,12 +1,16 @@
 package ms.example.hw_8_9
 
 import android.os.Bundle
+import android.text.TextUtils.replace
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import ms.example.hw_8_9.databinding.FragmentFirstBlankBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,7 +27,7 @@ class FirstBlankFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private var _binding: FirstBlankFragment? = null
+    private var _binding: FragmentFirstBlankBinding? = null
     private val binding get() = _binding!!
 
 
@@ -33,6 +37,7 @@ class FirstBlankFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(
@@ -40,9 +45,15 @@ class FirstBlankFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        _binding = FragmentFirstBlankBinding.inflate(layoutInflater)
 
+        binding.buttonfirst.setOnClickListener {
+            parentFragmentManager.commit {
+                replace<SecondBlankFragment>(R.id.fragmentinactivity)
+            }
+        }
 
-        return inflater.inflate(R.layout.fragment_first_blank, container, false)
+        return binding.root
     }
 
     companion object {
