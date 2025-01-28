@@ -10,6 +10,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.datepicker.MaterialDatePicker
 import ms.example.hw_8_9.databinding.FragmentFirstBlankBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -48,12 +49,26 @@ class FirstBlankFragment : Fragment() {
         _binding = FragmentFirstBlankBinding.inflate(layoutInflater)
 
         binding.buttonfirst.setOnClickListener {
+
+            MaterialDatePicker.Builder.datePicker()
+                .build()
+                .show(parentFragmentManager,"DatePicker")
+            val bundle = Bundle().apply {
+                putString("param1",binding.vvodtext.text.toString())
+            }
+
             parentFragmentManager.commit {
-                replace<SecondBlankFragment>(R.id.fragmentinactivity)
+                replace<SecondBlankFragment>(containerViewId = R.id.fragmentinactivity, args = bundle)
+                addToBackStack(SecondBlankFragment::class.java.simpleName)
             }
         }
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding=null
     }
 
     companion object {

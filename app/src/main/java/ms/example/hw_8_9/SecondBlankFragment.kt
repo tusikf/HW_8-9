@@ -43,6 +43,17 @@ class SecondBlankFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.sendtext.text=param1
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding=null
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of

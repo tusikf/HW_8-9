@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         }
         supportFragmentManager.commit {
             replace<FirstBlankFragment>(R.id.fragmentinactivity)
+            addToBackStack(FirstBlankFragment::class.java.simpleName)
         }
     }
 }
