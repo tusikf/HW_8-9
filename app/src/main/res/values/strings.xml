@@ -3,4 +3,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Enter your birthday</string>
     <string name="buttontext">Open DatePicker</string>
+    <string name="button2text">Open TimePicker</string>
+
+    <string name="choose_the_date">Title Dialog for DatePicker</string>
+    <string name="choose_the_time">Title Dialog for TimePicker</string>
+
+
 </resources>

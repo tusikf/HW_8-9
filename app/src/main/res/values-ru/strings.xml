@@ -3,4 +3,7 @@
     <string name="app_name">HW_8-9</string>
     <string name="hello_blank_fragment">Введите дату рождения</string>
     <string name="buttontext">Открыть календарик</string>
+    <string name="choose_the_date">Заголовок для диалога даты</string>
+    <string name="choose_the_time">Заголовок для диалога времени</string>
+
 </resources>

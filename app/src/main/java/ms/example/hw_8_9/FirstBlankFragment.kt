@@ -1,5 +1,6 @@
 package ms.example.hw_8_9
 
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.TextUtils.replace
 import androidx.fragment.app.Fragment
@@ -11,7 +12,11 @@ import androidx.fragment.app.replace
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import ms.example.hw_8_9.databinding.FragmentFirstBlankBinding
+import java.text.SimpleDateFormat
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,6 +35,9 @@ class FirstBlankFragment : Fragment() {
 
     private var _binding: FragmentFirstBlankBinding? = null
     private val binding get() = _binding!!
+
+    val calendar = Calendar.getInstance()
+    val dateFormat = SimpleDateFormat("dd.MM.yyyy hh:mm")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,17 +58,47 @@ class FirstBlankFragment : Fragment() {
 
         binding.buttonfirst.setOnClickListener {
 
-            MaterialDatePicker.Builder.datePicker()
+            val dateDialog = MaterialDatePicker.Builder.datePicker()
+                .setTitleText(resources.getString(R.string.choose_the_date))
+                .setSelection(calendar.timeInMillis)
                 .build()
-                .show(parentFragmentManager,"DatePicker")
+
+                dateDialog.addOnPositiveButtonClickListener { timeInMillis ->
+                    calendar.timeInMillis = timeInMillis
+//                    val day = calendar.get(Calendar.DAY_OF_MONTH)
+//                    val month = calendar.get(Calendar.MONTH) + 1
+//                    val year = calendar.get(Calendar.YEAR)
+//
+//                    val text = "$day / $month / $year"
+
+                    Snackbar.make(binding.buttonfirst, dateFormat.format(calendar.time), Snackbar.LENGTH_LONG).show()
+
+                }
+                dateDialog.show(parentFragmentManager,"DatePicker")
+
+        binding.buttonsecond.setOnClickListener {
+            val picker = MaterialTimePicker.Builder()
+                .setTitleText(resources.getString(R.string.choose_the_time))
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .build().apply {
+                    addOnPositiveButtonClickListener {
+                        calendar.set(Calendar.HOUR, this.hour)
+                        calendar.set(Calendar.MINUTE, this.minute)
+                        Snackbar.make(binding.buttonsecond, dateFormat.format(calendar.time), Snackbar.LENGTH_LONG).show()
+                    }
+                }
+            picker.show(parentFragmentManager, "TimePicker")
+
+        }
+
             val bundle = Bundle().apply {
                 putString("param1",binding.vvodtext.text.toString())
             }
 
-            parentFragmentManager.commit {
+            /*parentFragmentManager.commit {
                 replace<SecondBlankFragment>(containerViewId = R.id.fragmentinactivity, args = bundle)
                 addToBackStack(SecondBlankFragment::class.java.simpleName)
-            }
+            }*/
         }
 
         return binding.root
